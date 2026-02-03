@@ -41,8 +41,8 @@ BEGIN
         RETURN QUERY
         SELECT
             CONCAT(u.fname, ' ', u.mname, ' ', u.lname) AS user_name,
-            bd.start_date,
-            bd.end_date,
+            b.start_date,
+            b.end_date,
 
             cg.campground_id,
             cg.house_no,
@@ -59,8 +59,6 @@ BEGIN
         FROM booking b
         JOIN users u
             ON b.user_id = u.user_id
-        JOIN booking_data bd
-            ON b.booking_id = bd.booking_id
         JOIN campgrounds cg
             ON b.campground_id = cg.campground_id
         LEFT JOIN campground_phone_number cpn
@@ -71,8 +69,8 @@ BEGIN
         RETURN QUERY
         SELECT
             CONCAT(u.fname, ' ', u.mname, ' ', u.lname) AS user_name,
-            bd.start_date,
-            bd.end_date,
+            b.start_date,
+            b.end_date,
 
             cg.campground_id,
             cg.house_no,
@@ -89,8 +87,6 @@ BEGIN
         FROM booking b
         JOIN users u
             ON b.user_id = u.user_id
-        JOIN booking_data bd
-            ON b.booking_id = bd.booking_id
         JOIN campgrounds cg
             ON b.campground_id = cg.campground_id
         LEFT JOIN campground_phone_number cpn
