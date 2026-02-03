@@ -23,9 +23,8 @@ BEGIN
     -- Get booking owner
     SELECT user_id
     INTO v_booking_owner
-    FROM booking_data
-	JOIN booking ON booking_data.booking_id = booking.booking_id
-    WHERE booking_data.booking_id = p_booking_id;
+    FROM booking
+    WHERE booking_id = p_booking_id;
 
     -- Booking does not exist
     IF NOT FOUND THEN
@@ -34,12 +33,12 @@ BEGIN
 
     -- Admin can delete any booking
     IF v_role = 'admin' THEN
-        DELETE FROM booking_data
+        DELETE FROM booking
         WHERE booking_id = p_booking_id;
 
     -- User can delete only own booking
     ELSIF v_role = 'user' AND v_booking_owner = p_user_id THEN
-        DELETE FROM booking_data
+        DELETE FROM booking
         WHERE booking_id = p_booking_id;
     END IF;
 
