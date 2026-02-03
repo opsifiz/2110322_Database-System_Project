@@ -1,7 +1,8 @@
 # 2110322_Database-System_Project
 
 ## Campground Booking
-
+### Set - Up Schema
+[BaseSchema.sql](https://github.com/opsifiz/2110322_Database-System_Project/blob/main/BaseSchema.sql)
 ### Functional Requirement
 1. [The system shall allow a user to register by specifying the name, telephone number, email, and password.](https://github.com/opsifiz/2110322_Database-System_Project/tree/main/FunctionalRequirements/1)
 2. [After registration, the user becomes a registered user, and the system shall allow the user to log in to use the system by specifying the email and password. The system shall allow a registered user to log out.](https://github.com/opsifiz/2110322_Database-System_Project/tree/main/FunctionalRequirements/2)
