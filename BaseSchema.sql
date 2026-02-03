@@ -88,15 +88,15 @@ CREATE TABLE IF NOT EXISTS booking_data (
 
 CREATE TABLE IF NOT EXISTS booking (
     user_id INT,
-    booking_id INT,
+    booking_id INT GENERATED ALWAYS AS IDENTITY,
     campground_id INT NOT NULL,
     tent_id INT NOT NULL,
 
-    booking_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
 
-    CONSTRAINT check_dates CHECK (end_date > start_date) 
+    CONSTRAINT pk PRIMARY KEY (user_idd, booking_id, campground_id, tent_id),
+    CONSTRAINT check_dates CHECK (end_date > start_date),
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (booking_id) REFERENCES booking_data(booking_id) ON DELETE CASCADE,
     FOREIGN KEY (campground_id, tent_id) REFERENCES tents(campground_id, tent_id)
