@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS tents (
     tent_id INT,
     size VARCHAR(10),
     zone VARCHAR(50),
-    price DECIMAL(5,2),
+    price DECIMAL(7,2),
     PRIMARY KEY (campground_id, tent_id),
     FOREIGN KEY (campground_id) REFERENCES campgrounds(campground_id)
 );
