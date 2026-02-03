@@ -13,7 +13,7 @@ BEGIN
     SELECT role
     INTO v_role
     FROM users
-    WHERE id = p_user_id;
+    WHERE user_id = p_user_id;
 
     -- User does not exist
     IF NOT FOUND THEN
@@ -24,7 +24,8 @@ BEGIN
     SELECT user_id
     INTO v_booking_owner
     FROM booking_data
-    WHERE booking_id = p_booking_id;
+	JOIN booking ON booking_data.booking_id = booking.booking_id
+    WHERE booking_data.booking_id = p_booking_id;
 
     -- Booking does not exist
     IF NOT FOUND THEN
