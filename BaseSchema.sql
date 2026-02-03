@@ -1,5 +1,3 @@
-CREATE TYPE user_role AS ENUM ('user', 'admin');
-
 CREATE TABLE IF NOT EXISTS users (
     user_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, 
     fname VARCHAR(50) NOT NULL,
@@ -46,7 +44,7 @@ CREATE TABLE IF NOT EXISTS facilities (
     facility_id INT,
     facility_type VARCHAR(50) NOT NULL,
     PRIMARY KEY (campground_id, facility_id),
-    FOREIGN KEY (campground_id) REFERENCES facilities(campground_id, facility_id) ON DELETE CASCADE
+    FOREIGN KEY (campground_id) REFERENCES campgrounds(campground_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS manages_tent (
@@ -81,11 +79,6 @@ CREATE TABLE IF NOT EXISTS manages_campground (
     FOREIGN KEY (campground_id) REFERENCES campgrounds(campground_id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS booking_data (
-    
-    
-);
-
 CREATE TABLE IF NOT EXISTS booking (
     user_id INT,
     booking_id INT GENERATED ALWAYS AS IDENTITY,
@@ -95,9 +88,8 @@ CREATE TABLE IF NOT EXISTS booking (
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
 
-    CONSTRAINT pk PRIMARY KEY (user_idd, booking_id, campground_id, tent_id),
+    CONSTRAINT pk PRIMARY KEY (user_id, booking_id, campground_id, tent_id),
     CONSTRAINT check_dates CHECK (end_date > start_date),
     FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (booking_id) REFERENCES booking_data(booking_id) ON DELETE CASCADE,
     FOREIGN KEY (campground_id, tent_id) REFERENCES tents(campground_id, tent_id)
 );
