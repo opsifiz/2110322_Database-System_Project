@@ -9,13 +9,16 @@ CREATE OR REPLACE FUNCTION book_campground(
 RETURNS TEXT
 AS $$
 DECLARE
-    v_booking_id INT;
     v_nights INT;
 BEGIN
+    -- เช็กว่าเป็น user (ไม่ใช่ admin)
     IF NOT EXISTS (
-        SELECT 1 FROM users WHERE user_id = p_user_id
+        SELECT 1
+        FROM users
+        WHERE user_id = p_user_id
+          AND role = 'user'
     ) THEN
-        RAISE EXCEPTION 'User is not a registered user';
+        RAISE EXCEPTION 'Only registered users can make bookings';
     END IF;
 
     IF p_end_date <= p_start_date THEN
@@ -34,3 +37,4 @@ BEGIN
     RETURN 'Booking successful';
 END;
 $$ LANGUAGE plpgsql;
+
