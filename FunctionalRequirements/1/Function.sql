@@ -1,36 +1,24 @@
-CREATE OR REPLACE FUNCTION book_campground(
-    p_user_id INTEGER,
-    p_campground_id INTEGER,
-    p_start_date DATE,
-    p_end_date DATE
-)
-RETURNS TEXT
-AS $$
-DECLARE
-    v_booking_id INTEGER;
-    v_nights INTEGER;
+-- ข้อ 1
+-- ฟังค์ชันสำหรับการ Register
+CREATE OR REPLACE FUNCTION register_user(
+    p_fname VARCHAR,
+    p_mname VARCHAR, -- This can be passed as NULL
+    p_lname VARCHAR,
+    p_telephone VARCHAR,
+    p_email VARCHAR,
+    p_password VARCHAR,
+    p_role user_role DEFAULT 'user'
+) 
+RETURNS BOOLEAN AS $$
 BEGIN
-    -- validate dates
-    IF p_end_date <= p_start_date THEN
-        RAISE EXCEPTION 'End date must be after start date';
-    END IF;
+    INSERT INTO users (fname, mname, lname, telephone, email, password, role)
+    VALUES (p_fname, p_mname, p_lname, p_telephone, p_email, p_password, p_role);
 
-    -- calculate number of nights
-    v_nights := p_end_date - p_start_date;
+    RETURN TRUE;
 
-    IF v_nights > 3 THEN
-        RAISE EXCEPTION 'Booking exceeds maximum of 3 nights';
-    END IF;
-
-    -- insert into booking_data
-    INSERT INTO booking_data(start_date, end_date)
-    VALUES (p_start_date, p_end_date)
-    RETURNING booking_id INTO v_booking_id;
-
-    -- link user, booking, and campground
-    INSERT INTO booking(user_id, booking_id, campground_id)
-    VALUES (p_user_id, v_booking_id, p_campground_id);
-
-    RETURN 'Booking successful';
+EXCEPTION 
+    WHEN OTHERS THEN
+        -- Returns false if any constraint is violated (e.g., duplicate email)
+        RETURN FALSE;
 END;
 $$ LANGUAGE plpgsql;
