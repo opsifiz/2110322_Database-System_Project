@@ -51,6 +51,10 @@ BEGIN
       AND b.campground_id = p_old_campground_id
     FOR UPDATE;
 
+    IF v_booked_at IS NULL THEN
+        RAISE EXCEPTION 'Booking not found';
+    END IF;
+
     IF CURRENT_TIMESTAMP >= v_booked_at + INTERVAL '7 days' THEN
         RAISE EXCEPTION 'Cannot edit booking after 7 days';
     END IF;
@@ -80,10 +84,10 @@ BEGIN
         tent_id = p_new_tent_id,
         start_date = p_new_start_date,
         end_date = p_new_end_date
-    WHERE b.user_id = p_target_user_id
-      AND b.booking_id = p_booking_id
-      AND b.tent_id = p_old_tent_id
-      AND b.campground_id = p_old_campground_id
+    WHERE user_id = p_target_user_id
+      AND booking_id = p_booking_id
+      AND tent_id = p_old_tent_id
+      AND campground_id = p_old_campground_id;
 
     IF NOT FOUND THEN
         RAISE EXCEPTION 'Update failed';
