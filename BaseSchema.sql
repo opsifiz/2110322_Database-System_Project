@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS booking (
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
 	book_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT pk PRIMARY KEY (user_id, booking_id, campground_id, tent_id),
+    CONSTRAINT pk PRIMARY KEY booking_id,
     CONSTRAINT check_dates CHECK (end_date > start_date),
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (campground_id, tent_id) REFERENCES tents(campground_id, tent_id)
