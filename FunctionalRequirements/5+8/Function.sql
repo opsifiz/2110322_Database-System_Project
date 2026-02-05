@@ -31,10 +31,10 @@ BEGIN
     IF NOT EXISTS (
         SELECT 1
         FROM booking b
-        WHERE b.user_id = p_target_user_id
-          AND b.booking_id = p_booking_id
-          AND b.campground_id = p_old_campground_id
-          AND b.tent_id = p_old_tent_id
+        -- WHERE b.user_id = p_target_user_id
+        WHERE b.booking_id = p_booking_id
+        --   AND b.campground_id = p_old_campground_id
+        --   AND b.tent_id = p_old_tent_id
     ) THEN
         RAISE EXCEPTION 'Booking not found (or mismatched old campground/tent)';
     END IF;
@@ -45,10 +45,10 @@ BEGIN
 
     SELECT b.book_at INTO v_booked_at
     FROM booking b
-    WHERE b.user_id = p_target_user_id
-      AND b.booking_id = p_booking_id
-      AND b.tent_id = p_old_tent_id
-      AND b.campground_id = p_old_campground_id
+    -- WHERE b.user_id = p_target_user_id
+    WHERE b.booking_id = p_booking_id;
+    --   AND b.tent_id = p_old_tent_id
+    --   AND b.campground_id = p_old_campground_id
     FOR UPDATE;
 
     IF v_booked_at IS NULL THEN
@@ -84,10 +84,10 @@ BEGIN
         tent_id = p_new_tent_id,
         start_date = p_new_start_date,
         end_date = p_new_end_date
-    WHERE user_id = p_target_user_id
-      AND booking_id = p_booking_id
-      AND tent_id = p_old_tent_id
-      AND campground_id = p_old_campground_id;
+    -- WHERE user_id = p_target_user_id
+    WHERE booking_id = p_booking_id
+    --   AND tent_id = p_old_tent_id
+    --   AND campground_id = p_old_campground_id;
 
     IF NOT FOUND THEN
         RAISE EXCEPTION 'Update failed';
