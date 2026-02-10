@@ -1,0 +1,23 @@
+{
+  "title": "users",
+  "required": [ "_id", "fname", "lname", "telephone", "email", "password", "role" ],
+  "properties": {
+    "_id": { "bsonType": "objectId" },
+    "fname": { "bsonType": "string" },
+    "mname": { "bsonType": "string" },
+    "lname": { "bsonType": "string" },
+    "telephone": {
+      "bsonType": "string",
+      "pattern": "^[0-9]{9,10}$"
+    },
+    "email": {
+      "bsonType": "string",
+      "pattern": "^.+@.+$"
+    },
+    "password": { "bsonType": "string" },
+    "role": {
+      "bsonType": "string",
+      "enum": [ "user", "admin" ]
+    }
+  }
+}

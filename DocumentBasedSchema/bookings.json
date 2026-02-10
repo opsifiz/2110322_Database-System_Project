@@ -1,0 +1,17 @@
+{
+  "title": "bookings",
+  "required": [ "_id", "user_id", "campground_id", "tent_id", "start_date", "end_date" ],
+  "properties": {
+    "_id": { "bsonType": "objectId" },
+    "user_id": { "bsonType": "objectId" },
+    "campground_id": { "bsonType": "objectId" },
+    "tent_id": { "bsonType": "int" },
+    "booking_date": { "bsonType": "date" },
+    "start_date": { "bsonType": "date" },
+    "end_date": { "bsonType": "date" },
+    "status": {
+      "bsonType": "string",
+      "enum": [ "pending", "confirmed", "cancelled" ]
+    }
+  }
+}

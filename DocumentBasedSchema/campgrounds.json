@@ -1,0 +1,51 @@
+{
+  "title": "campgrounds",
+  "required": [ "_id", "name", "district", "province", "tents" ],
+  "properties": {
+    "_id": { "bsonType": "objectId" },
+    "name": { "bsonType": "string" },
+    "address": {
+      "bsonType": "object",
+      "properties": {
+        "house_no": { "bsonType": "string" },
+        "street": { "bsonType": "string" },
+        "subdistrict": { "bsonType": "string" },
+        "district": { "bsonType": "string" },
+        "province": { "bsonType": "string" },
+        "postal_code": { "bsonType": "string" },
+        "map_url": { "bsonType": "string" }
+      }
+    },
+    "contact_email": { "bsonType": "string" },
+    "phone_numbers": {
+      "bsonType": "array",
+      "items": {
+        "bsonType": "string",
+        "pattern": "^[0-9]{9,10}$"
+      }
+    },
+    "facilities": {
+      "bsonType": "array",
+      "items": {
+        "bsonType": "object",
+        "properties": {
+          "facility_id": { "bsonType": "int" },
+          "facility_type": { "bsonType": "string" }
+        }
+      }
+    },
+    "tents": {
+      "bsonType": "array",
+      "items": {
+        "bsonType": "object",
+        "required": [ "tent_id", "price" ],
+        "properties": {
+          "tent_id": { "bsonType": "int" },
+          "size": { "bsonType": "string" },
+          "zone": { "bsonType": "string" },
+          "price": { "bsonType": "decimal" }
+        }
+      }
+    }
+  }
+}
